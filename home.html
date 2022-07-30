@@ -1,0 +1,34 @@
+
+<ons-page id="home">
+    <ons-toolbar id="home-toolbar">
+    <div class="center">Home</div>
+    <div class="left">
+        <ons-toolbar-button onclick="openMenu()">
+            <ons-icon
+            icon="ion-navicon, material:md-menu">
+          </ons-icon>
+        </ons-toolbar-button>
+      </div>
+  </ons-toolbar>
+  <ons-tabbar id="tabbar" swipeable position="auto">
+    <ons-tab page="pokemon.html" label="Pokémon" icon="ion-ios-home, material:md-home"></ons-tab>
+    <ons-tab page="saved.html" label="Saved" icon="ion-ios-save, material:md-save"></ons-tab>
+  </ons-tabbar>
+
+<script>
+  
+  const openMenu = () => {
+    document.querySelector('#menu').open();
+  };
+  document.addEventListener('prechange', ({ target, tabItem }) => {
+  if (target.matches('#tabbar')) {
+    document.querySelector('#home-toolbar .center').innerHTML = tabItem.getAttribute('label');
+  }
+});
+
+const savePokemon = (pokenumber, button) => {
+  addPokemonToGrid(pokenumber);
+  button.parentNode.parentNode.hideExpansion();
+};
+</script>
+</ons-page>
