@@ -2,22 +2,28 @@
 <html>
 <head>
   
-<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.min.css">
 <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script> -->
+<link rel="stylesheet" href="libs/onsenui/css/src/onsenui.css">
+<link rel="stylesheet" href="libs/onsenui/css/css-components-src/onsen-css-components.css">
+<script src="libs/onsenui/scripts/onsenui.js"></script>
 <link rel="manifest" href="manifest.json">
 <script>
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('./service-worker.js')
-    .then(() => { console.log('Service Worker Registered'); });
-}
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker
+//     .register('./service-worker.js')
+//     .then(() => { console.log('Service Worker Registered'); });
+// }
 
-  let a = 1;
-  if(a = 1){
-    console.log("k");
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log("Service Worker Registered"))
+      .catch(e => console.log(e));
   }
+
+
 </script>
 </head>
 <body>
