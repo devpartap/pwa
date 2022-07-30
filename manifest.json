@@ -1,6 +1,6 @@
 {
-    "name":"Pokemon",
-    "short_name": "Fireship",
+    "name":"PokeDex",
+    "short_name": "PokeDex",
     "start_url": "/?home=true",
     "icons":[
             {
