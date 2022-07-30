@@ -1,0 +1,62 @@
+<ons-page id="saved">
+  <style>
+    #grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-auto-rows: 33vw;
+    }
+
+    #grid img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+<script>
+    
+    let savedPokemon = [];
+    let gotp = []
+    console.log("this -> " + localStorage.getItem("SAVEDPOKE"));
+    // if(helloo = JSON.parse(localStorage.getItem("SAVEDPOKE")) !== null){
+    //   gotp = helloo;
+    // }
+    gotp = [];
+
+    if((dataa = JSON.parse(localStorage.getItem("SAVEDPOKE"))) !== null)
+    {
+    gotp = dataa;
+    }
+    console.log(gotp);
+    function addPokemonToGrid(pokenumber){
+      // we save a list so we can pass it to the galzlery      
+      
+      savedPokemon.push(pokenumber);
+      
+      // now add the new pokemon to the grid
+      const grid = document.querySelector('#grid');
+      const cell = document.createElement('div');
+      cell.onclick = () => document.querySelector('#navigator')
+        .bringPageTop('gallery.html', { data: { pokenumber, savedPokemon } });
+
+      const image = document.createElement('img');
+      image.setAttribute('src', `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokenumber}.png`);
+
+      cell.appendChild(image);
+      grid.appendChild(cell);
+    };
+
+    let i = 0;
+    console.log(gotp.length + " islength");
+
+    
+    while(i < gotp.length){
+      addPokemonToGrid(gotp[i]);
+      console.log(gotp[i] + " added!!");
+      i = i + 1;
+    }
+  </script>
+
+  <div id="content">
+    <div id="grid"></div>
+  </div>
+</ons-page>

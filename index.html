@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+<link rel="manifest" href="manifest.json">
+<script>
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('./service-worker.js')
+    .then(() => { console.log('Service Worker Registered'); });
+}
+
+  let a = 1;
+  if(a = 1){
+    console.log("k");
+  }
+</script>
+</head>
+<body>
+  <ons-splitter>
+    <!-- The side menu -->
+    <ons-splitter-side id="menu" collapse>
+      <ons-page>
+        <ons-list>
+        <ons-listitem> </ons-listitem>
+          <ons-list-item onclick="loadPage('about.html')">
+            About
+          </ons-list-item>
+          <ons-list-item onclick="clearLocalStorage()">
+            Clear local storage
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+  
+    <!-- Everything not in the side menu -->
+    <ons-splitter-content>
+      <ons-navigator id="navigator" page="login.html"></ons-navigator>
+    </ons-splitter-content>
+  </ons-splitter>
+<script>
+  console.log('st');
+  const loadPage = (page) => {
+    document.querySelector('#menu').close();
+    document.querySelector('#navigator').bringPageTop(page, { animation: 'fade' });
+  };
+
+  const clearLocalStorage = () => {
+  localStorage.clear();
+  ons.notification.alert('Cleared local storage');
+};
+</script>
+</body>
+</html>
