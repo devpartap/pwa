@@ -2,64 +2,50 @@ importScripts('workbox-sw.js');
 
 workbox.routing.registerRoute(
     ({request}) => request.destination === 'image',
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.CacheFirst()
 );
 
-// // workbox.loadModule('workbox-strategies');
+// // 1. Save the files to the user's device
+// // The "install" event is called when the ServiceWorker starts up.
+// // All ServiceWorker code must be inside events.
+// self.addEventListener('install', function(e) {
+//   console.log('install');
 
-// // self.addEventListener('fetch', event => {
-// //   if (event.request.url.endsWith('.png')) {
-// //     // Referencing workbox.strategies will now work as expected.
-// //     const cacheFirst = new workbox.strategies.CacheFirst();
-// //     event.respondWith(cacheFirst.handle({request: event.request}));
-// //   }
-// // });
+//   // waitUntil tells the browser that the install event is not finished until we have
+//   // cached all of our files
+//   e.waitUntil(
+//     // Here we call our cache "myonsenuipwa", but you can name it anything unique
+//     caches.open('myonsenuipwa').then(cache => {
+//       // If the request for any of these resources fails, _none_ of the resources will be
+//       // added to the cache.
+//       return cache.addAll([
+//         '/',
+//         '/index.html',
+//         'https://unpkg.com/onsenui/css/onsenui.min.css',
+//         'https://unpkg.com/onsenui/css/onsen-css-components.min.css',
+//         'https://unpkg.com/onsenui/js/onsenui.min.js'
+//       ]);
+//     })
+//   );
+// });
 
+// // 2. Intercept requests and return the cached version instead
+// self.addEventListener('fetch', function(e) {
+//   e.respondWith(
+//     // check if this file exists in the cache
+//     caches.match(e.request)
+//       // Return the cached file, or else try to get it from the server
+//       .then(response => response || fetch(e.request))
+//   );
+// });
 
-
-
-
-// 1. Save the files to the user's device
-// The "install" event is called when the ServiceWorker starts up.
-// All ServiceWorker code must be inside events.
-self.addEventListener('install', function(e) {
-  console.log('install');
-
-  // waitUntil tells the browser that the install event is not finished until we have
-  // cached all of our files
-  e.waitUntil(
-    // Here we call our cache "myonsenuipwa", but you can name it anything unique
-    caches.open('myonsenuipwa').then(cache => {
-      // If the request for any of these resources fails, _none_ of the resources will be
-      // added to the cache.
-      return cache.addAll([
-        '/',
-        '/index.html',
-        'https://unpkg.com/onsenui/css/onsenui.min.css',
-        'https://unpkg.com/onsenui/css/onsen-css-components.min.css',
-        'https://unpkg.com/onsenui/js/onsenui.min.js'
-      ]);
-    })
-  );
-});
-
-// 2. Intercept requests and return the cached version instead
-self.addEventListener('fetch', function(e) {
-  e.respondWith(
-    // check if this file exists in the cache
-    caches.match(e.request)
-      // Return the cached file, or else try to get it from the server
-      .then(response => response || fetch(e.request))
-  );
-});
-
-caches.open('myonsenuiapp').then(cache => {
-  return cache.addAll([
-    '/',
-    '/index.html',
-    '/manifest.json',
-    'https://unpkg.com/onsenui/css/onsenui.min.css',
-    'https://unpkg.com/onsenui/css/onsen-css-components.min.css',
-    'https://unpkg.com/onsenui/js/onsenui.min.js'
-  ]);
-})
+// caches.open('myonsenuiapp').then(cache => {
+//   return cache.addAll([
+//     '/',
+//     '/index.html',
+//     '/manifest.json',
+//     'https://unpkg.com/onsenui/css/onsenui.min.css',
+//     'https://unpkg.com/onsenui/css/onsen-css-components.min.css',
+//     'https://unpkg.com/onsenui/js/onsenui.min.js'
+//   ]);
+// })
